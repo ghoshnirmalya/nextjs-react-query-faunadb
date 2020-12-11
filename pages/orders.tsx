@@ -1,13 +1,13 @@
-import { Box, Grid, Text } from "@chakra-ui/react";
-import getAllCustomers from "lib/get-all-customers";
+import { Badge, Box, Grid, HStack, Text, VStack } from "@chakra-ui/react";
+import getAllOrders from "lib/get-all-orders";
 import { NextPage } from "next";
 import React from "react";
 import { QueryCache, useQuery } from "react-query";
 import { dehydrate } from "react-query/hydration";
-import { User } from "types/user";
+import { Order } from "types/order";
 
-const CustomersPage: NextPage = () => {
-  const { status, data } = useQuery("allCustomers", getAllCustomers);
+const OrdersPage: NextPage = () => {
+  const { status, data } = useQuery("allOrders", getAllOrders);
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -22,15 +22,18 @@ const CustomersPage: NextPage = () => {
       <Box borderWidth={1} rounded="md" bg="white">
         <Box borderBottomWidth={1} px={8} py={6} bg="gray.200">
           <Text fontWeight="bold" textTransform="uppercase">
-            Customers
+            Orders
           </Text>
         </Box>
         <Box>
-          {data.map((user: User) => {
+          {data.map((order: Order) => {
             return (
-              <Text key={user._id} p={8} color="gray.700" borderBottomWidth={1}>
-                {user.firstName} {user.lastName}
-              </Text>
+              <Box key={order._id} p={8} color="gray.700" borderBottomWidth={1}>
+                <HStack spacing={8} justifyContent="space-between">
+                  <Text>{order.shipAddress.city}</Text>
+                  <Badge colorScheme="green">{order.status}</Badge>
+                </HStack>
+              </Box>
             );
           })}
         </Box>
@@ -41,9 +44,7 @@ const CustomersPage: NextPage = () => {
 
 export const getServerSideProps = async () => {
   const queryCache = new QueryCache();
-
-  await queryCache.prefetchQuery("allCustomers", getAllCustomers);
-
+  await queryCache.prefetchQuery("allOrders", getAllOrders);
   return {
     props: {
       dehydratedState: dehydrate(queryCache),
@@ -51,4 +52,4 @@ export const getServerSideProps = async () => {
   };
 };
 
-export default CustomersPage;
+export default OrdersPage;

@@ -1,14 +1,16 @@
 import { gql } from "graphql-request";
 import graphQLClient from "lib/graphql-client";
 
-const getAllCustomers = async () => {
+const getAllOrders = async () => {
   const query = gql`
     {
-      allCustomers {
+      allOrders {
         data {
           _id
-          firstName
-          lastName
+          status
+          shipAddress {
+            city
+          }
         }
       }
     }
@@ -17,7 +19,7 @@ const getAllCustomers = async () => {
   const response = await graphQLClient.request(query);
   const data = JSON.parse(JSON.stringify(response));
 
-  return data.allCustomers.data;
+  return data.allOrders.data;
 };
 
-export default getAllCustomers;
+export default getAllOrders;
