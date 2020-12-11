@@ -1,0 +1,37 @@
+{
+  "name": "nextjs-react-query-faunadb",
+  "description": "Sample application to demonstrate the difference between SWR and react-query",
+  "license": "MIT",
+  "author": "nirmalya.email@gmail.com",
+  "scripts": {
+    "build": "next build",
+    "dev": "next",
+    "start": "next start"
+  },
+  "dependencies": {
+    "graphql": "^15.4.0",
+    "graphql-request": "^3.3.0",
+    "next": "10.0.3",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-query": "^2.26.3"
+  },
+  "devDependencies": {
+    "@types/react": "^17.0.0",
+    "husky": "^4.3.0",
+    "lerna": "^3.22.1",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
+    "typescript": "^4.1.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,json,css,md,tsx,ts}": [
+      "prettier --write"
+    ]
+  }
+}
