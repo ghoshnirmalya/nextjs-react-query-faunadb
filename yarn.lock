@@ -2069,7 +2069,7 @@ human-signals@^1.1.1:
   resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
   integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
 
-husky@^4.3.0:
+husky@^4.3.5:
   version "4.3.5"
   resolved "https://registry.yarnpkg.com/husky/-/husky-4.3.5.tgz#ab8d2a0eb6b62fef2853ee3d442c927d89290902"
   integrity sha512-E5S/1HMoDDaqsH8kDF5zeKEQbYqe3wL9zJDyqyYqc8I4vHBtAoxkDBGXox0lZ9RI+k5GyB728vZdmnM4bYap+g==
@@ -3464,7 +3464,7 @@ react-is@16.13.1, react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-query@^2.26.3:
+react-query@^2.26.4:
   version "2.26.4"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-2.26.4.tgz#18239b4c0b61d0b744f0d4a91f566b294fa9f752"
   integrity sha512-sXGG0gh1ah11AcfptYOCRpGDoYMnssq6riQUpQaLSM2EOodVkexp3zNLk1MFDgfRGuXQst40Tnu17oNwni66aA==
