@@ -1,13 +1,15 @@
-import { Badge, Box, Grid, HStack, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Grid, HStack, Text } from "@chakra-ui/react";
 import getAllProducts from "lib/get-all-products";
 import { NextPage } from "next";
 import React from "react";
-import { QueryCache, useQuery } from "react-query";
+import { QueryClient, useQuery } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { Product } from "types/product";
 
 const ProductsPage: NextPage = () => {
-  const { status, data } = useQuery("allProducts", getAllProducts);
+  const { status, data } = useQuery("allProducts", getAllProducts, {
+    staleTime: Infinity,
+  });
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -48,11 +50,14 @@ const ProductsPage: NextPage = () => {
 };
 
 export const getServerSideProps = async () => {
-  const queryCache = new QueryCache();
-  await queryCache.prefetchQuery("allProducts", getAllProducts);
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery("allProducts", getAllProducts, {
+    staleTime: Infinity,
+  });
+
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

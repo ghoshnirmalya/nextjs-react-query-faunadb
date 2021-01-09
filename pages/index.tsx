@@ -2,12 +2,14 @@ import { Box, Grid, Text } from "@chakra-ui/react";
 import getAllCustomers from "lib/get-all-customers";
 import { NextPage } from "next";
 import React from "react";
-import { QueryCache, useQuery } from "react-query";
+import { QueryClient, useQuery } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { User } from "types/user";
 
 const CustomersPage: NextPage = () => {
-  const { status, data } = useQuery("allCustomers", getAllCustomers);
+  const { status, data } = useQuery("allCustomers", getAllCustomers, {
+    staleTime: Infinity,
+  });
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -40,13 +42,14 @@ const CustomersPage: NextPage = () => {
 };
 
 export const getServerSideProps = async () => {
-  const queryCache = new QueryCache();
-
-  await queryCache.prefetchQuery("allCustomers", getAllCustomers);
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery("allCustomers", getAllCustomers, {
+    staleTime: Infinity,
+  });
 
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

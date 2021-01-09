@@ -1,13 +1,15 @@
-import { Badge, Box, Grid, HStack, Text, VStack } from "@chakra-ui/react";
+import { Badge, Box, Grid, HStack, Text } from "@chakra-ui/react";
 import getAllOrders from "lib/get-all-orders";
 import { NextPage } from "next";
 import React from "react";
-import { QueryCache, useQuery } from "react-query";
+import { QueryClient, useQuery } from "react-query";
 import { dehydrate } from "react-query/hydration";
 import { Order } from "types/order";
 
 const OrdersPage: NextPage = () => {
-  const { status, data } = useQuery("allOrders", getAllOrders);
+  const { status, data } = useQuery("allOrders", getAllOrders, {
+    staleTime: Infinity,
+  });
 
   if (status === "loading") {
     return <div>Loading...</div>;
@@ -43,11 +45,14 @@ const OrdersPage: NextPage = () => {
 };
 
 export const getServerSideProps = async () => {
-  const queryCache = new QueryCache();
-  await queryCache.prefetchQuery("allOrders", getAllOrders);
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery("allOrders", getAllOrders, {
+    staleTime: Infinity,
+  });
+
   return {
     props: {
-      dehydratedState: dehydrate(queryCache),
+      dehydratedState: dehydrate(queryClient),
     },
   };
 };

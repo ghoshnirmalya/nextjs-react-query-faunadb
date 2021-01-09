@@ -8,21 +8,15 @@ import {
 import type { AppProps } from "next/app";
 import Link from "next/link";
 import React from "react";
-import { QueryCache, ReactQueryCacheProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Hydrate } from "react-query/hydration";
 
-const queryCache = new QueryCache({
-  defaultConfig: {
-    queries: {
-      staleTime: Infinity,
-    },
-  },
-});
+const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <ChakraProvider>
-      <ReactQueryCacheProvider queryCache={queryCache}>
+      <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
           <Box bg="gray.100" h="100vh" w="100vw">
             <Box borderWidth={1} rounded="md" bg="white" p={6}>
@@ -45,7 +39,7 @@ const App = ({ Component, pageProps }: AppProps) => {
             </Container>
           </Box>
         </Hydrate>
-      </ReactQueryCacheProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 };
